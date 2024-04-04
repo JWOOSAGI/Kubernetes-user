@@ -1,4 +1,4 @@
-package com.von.kubernetesuser.proxy;
+package com.von.kubernetesuser.common.proxy;
 
 import java.util.function.Function;
 

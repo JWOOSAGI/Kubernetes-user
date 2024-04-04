@@ -1,6 +1,7 @@
 package com.von.kubernetesuser.user;
 
 import com.von.kubernetesuser.article.Article;
+import com.von.kubernetesuser.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,7 +11,7 @@ import java.util.List;
 @Getter
 @ToString
 @Entity(name = "users")
-public class User {
+public class User extends BaseEntity {
 
     @Id
     @Column(name = "id",nullable = false)

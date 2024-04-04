@@ -1,5 +1,6 @@
 package com.von.kubernetesuser.board;
 import com.von.kubernetesuser.article.Article;
+import com.von.kubernetesuser.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,7 +11,7 @@ import java.util.List;
 @ToString(exclude = {"id"})
 @Entity(name="boards")
 
-public class Board {
+public class Board extends BaseEntity {
     @Id
     @Column(name = "board_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -1,8 +1,6 @@
 package com.von.kubernetesuser.article;
 
 
-import com.von.kubernetesuser.common.AbstractService;
-import com.von.kubernetesuser.enums.Messenger;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,50 +10,52 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class ArticleServiceImpl extends AbstractService {
+public class ArticleServiceImpl implements ArticleService {
 
     private final ArticleRepository repository;
 
     @Override
-    public Messenger save(Object t) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+    public String save(Article article) {
+        return null;
     }
 
     @Override
-    public List findAll() throws SQLException {
-        return repository.findAll();
+    public String insertMany() {
+        return null;
     }
 
     @Override
-    public Optional findById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+    public String delete(Article article) {
+        return null;
+    }
+
+    @Override
+    public List<Article> findAll() throws SQLException {
+        return null;
+    }
+
+    @Override
+    public Optional<ArticleDTO> findById(Long id) {
+        Article ent = repository.findById(id).get();
+
+        Optional<ArticleDTO> dto = entityToDto(ent);
+
+        return Optional.of(dto.orElse(null));
+
     }
 
     @Override
     public String count() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'count'");
+        return null;
     }
 
     @Override
-    public Optional getOne(String id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getOne'");
-    }
-
-    @Override
-    public String delete(Object t) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    public Optional<Article> getOne(String id) {
+        return Optional.empty();
     }
 
     @Override
     public Boolean existsById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'existsById'");
+        return null;
     }
-
-
 }
