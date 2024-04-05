@@ -1,7 +1,7 @@
-package com.von.kubernetesuser.user;
+package com.von.kubernetesuser.user.model;
 
-import com.von.kubernetesuser.article.Article;
-import com.von.kubernetesuser.common.BaseEntity;
+import com.von.kubernetesuser.article.model.Article;
+import com.von.kubernetesuser.common.model.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 

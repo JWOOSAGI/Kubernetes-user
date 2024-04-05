@@ -1,5 +1,6 @@
 package com.von.kubernetesuser.article;
 
+import com.von.kubernetesuser.article.service.ArticleServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

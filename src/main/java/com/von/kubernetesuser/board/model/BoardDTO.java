@@ -1,11 +1,10 @@
-package com.von.kubernetesuser.board;
+package com.von.kubernetesuser.board.model;
 
-import com.von.kubernetesuser.article.Article;
+import com.von.kubernetesuser.article.model.Article;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

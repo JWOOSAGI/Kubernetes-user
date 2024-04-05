@@ -1,4 +1,4 @@
-package com.von.kubernetesuser.common;
+package com.von.kubernetesuser.common.service;
 
 public class UtilServiceImpl implements UtilService {
 

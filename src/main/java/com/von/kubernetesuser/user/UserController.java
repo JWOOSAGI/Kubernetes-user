@@ -1,102 +1,140 @@
 package com.von.kubernetesuser.user;
 
 import com.von.kubernetesuser.common.component.MessengerVO;
+import com.von.kubernetesuser.user.model.UserDTO;
+
+import com.von.kubernetesuser.user.service.UserServiceImpl;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+import org.springdoc.core.converters.models.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequiredArgsConstructor
+@RequestMapping(path = "/api/users")
+@Slf4j
 public class UserController {
-    private final UserRepository repository;
+    private final UserServiceImpl service;
 
-    @GetMapping("/api/join")
-    public String hello(){
-        return "welcom";
+    // -------------------- Command ---------------------------
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = "400", description = "Invalid ID supplied"),
+//            @ApiResponse(responseCode = "404", description = "Customer not found")})
+    @PostMapping(path = "")
+    public ResponseEntity<MessengerVO> save(@RequestBody UserDTO UserDTO) {
+        log.info("입력받은 정보 : {}", UserDTO );
+        // User newUser = service.save(param);
+        service.save(UserDTO);
+        return ResponseEntity.ok(new MessengerVO("성공",200,"success"));
     }
 
-    @PostMapping(path="/api/login")
+    // -------------------- Query ---------------------------
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "400", description = "Invalid ID supplied"),
+            @ApiResponse(responseCode = "404", description = "Customer not found")})
+    @PostMapping(path="/login")
     public Map<String,?> name(@RequestBody Map<?,?> paramMap){
         Map<String, MessengerVO> map = new HashMap<>();
 
         String userName = (String) paramMap.get("userName");
 
-        User dbuser = repository.findByUsername(userName).orElse(null);//Entity, Optinal, List 3가지 타입만 가능
-
-        return map;
-    }
-    @PostMapping(path="/api/users")
-    public Map<String,?> username (@RequestBody Map<String,?> paramMap){
-
-        User newUser = repository.save(User.builder()
-                .username((String) paramMap.get("username"))
-                .password((String) paramMap.get("psw"))
-                .name((String) paramMap.get("name"))
-                .phone((String) paramMap.get("phone"))
-                .job((String) paramMap.get("job"))
-                .build());
-
-        System.out.println("DB에 저장된 User 정보 : "+newUser);
-        Map<String, MessengerVO> map = new HashMap<>();
+        //User dbuser = service.findByUsername(userName).orElse(null);//Entity, Optinal, List 3가지 타입만 가능
 
         return map;
     }
 
-    @GetMapping("/api/all-users")
-    public List<User> findAll() throws SQLException{
-        return repository.findAll();
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = "400", description = "Invalid ID supplied"),
+//            @ApiResponse(responseCode = "404", description = "Customer not found")})
+    @GetMapping("/all-users")
+    public ResponseEntity<List<UserDTO>>findAll(Pageable pageable) {
+        return ResponseEntity.ok(new ArrayList<>());
     }
 
-    public Map<String,?> save(@RequestBody Map<String,?> map) {
-        return null;
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "400", description = "Invalid ID supplied"),
+            @ApiResponse(responseCode = "404", description = "Customer not found")})
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<UserDTO>> findUserById(@PathVariable Long id) {
+        Map<String, String> response = new HashMap<>();
+        return ResponseEntity.ok(Optional.of(new UserDTO()));
     }
 
-    public Map<String,?> login(@RequestBody Map<String,?> map) {
-        return null;
-    }
-
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "400", description = "Invalid ID supplied"),
+            @ApiResponse(responseCode = "404", description = "Customer not found")})
+    @GetMapping("/password")
     public Map<String,?> changePassword(@RequestBody Map<String,?> map) {
         return null;
     }
 
-    public Map<String,?> delete(@RequestBody Map<String,?> map) {
-        return null;
-    }
-
-    public Map<String,?> findUsersByName(@RequestBody Map<String,?> map) {
-        return null;
-    }
-
-    public Map<String,?> findUsersByJob(@RequestBody Map<String,?> map) {
-        return null;
+    @DeleteMapping("/api/all-users")
+    public ResponseEntity<MessengerVO> deleteUser(@RequestBody Map<?, ?> paramap) {
+        return ResponseEntity.ok(new MessengerVO());
     }
 
 
-    public Map<String,?> count() {
-        return null;
-    }
+//    @GetMapping("/api/all-users")
+//    public ResponseEntity<MessengerVO> getUserList() {
+//        return ResponseEntity.ok(new MessengerVO());
+//    }
+//
+//
+//    @GetMapping("/api/all-users")
+//    public ResponseEntity<MessengerVO> findUserByName(@RequestBody Map<?, ?> paramap) {
+//        return ResponseEntity.ok(new MessengerVO());
+//
+//    }
+//
+//
+//    @GetMapping("/api/all-users")
+//    public ResponseEntity<MessengerVO> findUserByJob(@RequestBody Map<?, ?> paramap) {
+//        return ResponseEntity.ok(new MessengerVO());
+//    }
+//
+//
+//    @GetMapping("/api/all-users")
+//    public ResponseEntity<MessengerVO> countUser() {
+//        return ResponseEntity.ok(new MessengerVO());
+//
+//    }
+//
+//    @GetMapping("/api/all-users")
+//    public ResponseEntity<MessengerVO> getOne(@RequestBody Map<?, ?> paramap) throws SQLException {
+//        return ResponseEntity.ok(new MessengerVO());
+//    }
+//
+//
+//    @GetMapping("/api/all-users")
+//    public ResponseEntity<MessengerVO> findUsers() throws SQLException {
+//
+//        return ResponseEntity.ok(new MessengerVO());
+//    }
+//
+//
+//    @GetMapping("/api/all-users")
+//    public ResponseEntity<MessengerVO> getUser(@RequestBody Map<?, ?> paramap) throws SQLException {
+//        return ResponseEntity.ok(new MessengerVO());
+//    }
+//
+//
+//    @GetMapping("/api/all-users")
+//    public ResponseEntity<MessengerVO> touchTable() throws SQLException {
+//        return ResponseEntity.ok(new MessengerVO());
+//    }
+//
+//
+//    @GetMapping("/api/all-users")
+//    public ResponseEntity<MessengerVO> removeTable() throws SQLException {
+//        return ResponseEntity.ok(new MessengerVO());
+//    }
 
-    public Map<String,?> findUsers() throws SQLException {
-        return null;
-    }
-
-    public void createTable() throws SQLException {
-    }
-
-    public void deleteTable() throws SQLException {
-    }
-
-
-    public Map<String,?> getOne(@RequestBody Map<String,?> map) {
-        return null;
-    }
-
-    public Map<String,?> findUser(@RequestBody Map<String,?> map) {
-        return null;
-    }
 }

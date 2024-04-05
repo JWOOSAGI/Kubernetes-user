@@ -1,6 +1,6 @@
 package com.von.kubernetesuser.common.component;
 
-import com.von.kubernetesuser.article.ArticleDTO;
+import com.von.kubernetesuser.article.model.ArticleDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.von.kubernetesuser.common;
+package com.von.kubernetesuser.common.repository;
 
 import java.io.IOException;
 import java.util.Map;

@@ -1,8 +1,8 @@
-package com.von.kubernetesuser.article;
+package com.von.kubernetesuser.article.model;
 
-import com.von.kubernetesuser.board.Board;
-import com.von.kubernetesuser.common.BaseEntity;
-import com.von.kubernetesuser.user.User;
+import com.von.kubernetesuser.board.model.Board;
+import com.von.kubernetesuser.common.model.BaseEntity;
+import com.von.kubernetesuser.user.model.User;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,11 +21,11 @@ public class Article extends BaseEntity {
     private String title;
     private String content;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User userId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     private Board boardId;
 

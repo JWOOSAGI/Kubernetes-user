@@ -1,4 +1,4 @@
-package com.von.kubernetesuser.common;
+package com.von.kubernetesuser.common.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
