@@ -14,44 +14,34 @@ import java.util.List;
 public class User extends BaseEntity {
 
     @Id
-    @Column(name = "id",nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
     private String username;
-
-    @Column(name="password")
     private String password;
-
-    @Column(name="passwordConfirm")
     private String passwordConfirm;
-
-    @Column(name="name")
     private String name;
-
-    @Column(name="phone")
     private String phone;
-
-    @Column(name="addressId")
-    private Long addressId;
-
-    @Column(name="job")
+    private String email;
     private String job;
 
-    @OneToMany(mappedBy = "userId")
+
+    @OneToMany(mappedBy = "writer", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Article> article;
 
     @Builder(builderMethodName = "builder")
     public User(Long id, String username, String password, String passwordConfirm, String name,  String phone,
-                String job){
+                String job, String email){
         this.id = id;
         this.username = username;
         this.password = password;
         this.passwordConfirm = passwordConfirm;
         this.name = name;
         this.phone = phone;
+        this.email = email;
         this.job = job;
+
 
     }
     public void setPassword(String password) {
@@ -66,4 +56,7 @@ public class User extends BaseEntity {
                 " job=" + job +
                 '}'+'\n'+'\n';
     }
+
+
+
 }

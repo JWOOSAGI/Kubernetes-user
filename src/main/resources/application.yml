@@ -6,6 +6,10 @@ spring:
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
+  sql:
+      init:
+        platform: mysql
+        mode: always
   jpa:
     hibernate:
       ddl-auto: create
@@ -14,15 +18,20 @@ spring:
         dialect: org.hibernate.dialect.MySQL8Dialect
         jdbc:
           lob:
-            non_contextual_creation: true
-        format_sql: true
+            '[non_contextual_creation]': true
+        '[format_sql]': true
     show-sql: true
+    defer-datasource-initialization: true
 logging:
   level:
     org:
       hibernate:
         SQL: debug
         type: trace
+jwt:
+  iss: von.com
+  exp: 24 * 60 * 60 1000
+  secret: bitcampbitcampbitcampbitcampbitcampbitcampbitcampbitcampbitcampbitcampbitcamp
 
 
     # ????? create ?? update ????? validate

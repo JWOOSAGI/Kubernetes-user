@@ -5,6 +5,7 @@ import com.von.kubernetesuser.article.model.Article;
 import com.von.kubernetesuser.article.model.ArticleDTO;
 import com.von.kubernetesuser.article.repository.ArticleRepository;
 import com.von.kubernetesuser.article.service.ArticleService;
+import com.von.kubernetesuser.common.component.MessengerVO;
 import com.von.kubernetesuser.common.component.PageRequestVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,39 +17,41 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class ArticleServiceImpl implements ArticleService {
-
-    private final ArticleRepository repository;
-
+    private final ArticleRepository repo;
 
     @Override
-    public ArticleDTO save(ArticleDTO t) {
-        return entityToDTO(Optional.of(repository.save(dtoToEntity(t))));
-    }
-
-    @Override
-    public void deleteById(Long id) {
-         repository.deleteById(id);
-    }
-
-    @Override
-    public List<ArticleDTO> findAll(PageRequestVO vo) {
-        //return repository.findAll(vo);
+    public MessengerVO save(ArticleDTO articleDTO) {
         return null;
     }
 
+    @Override
+    public MessengerVO deleteById(Long id) {
+        repo.deleteById(id);
+        return new MessengerVO();
+    }
+
+    @Override
+    public MessengerVO modify(ArticleDTO articleDTO) {
+        return null;
+    }
+
+    @Override
+    public List<ArticleDTO> findAll() {
+        return repo.findAll().stream().map(i->entityToDTO(i)).toList();
+    }
 
     @Override
     public Optional<ArticleDTO> findById(Long id) {
-        return Optional.of(entityToDTO(repository.findById(id)));
+        return repo.findById(id).map(this::entityToDTO);
     }
 
     @Override
     public long count() {
-        return repository.count();
+        return 0;
     }
 
     @Override
     public boolean existsById(Long id) {
-        return repository.existsById(id);
+        return false;
     }
 }

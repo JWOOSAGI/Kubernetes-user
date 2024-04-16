@@ -1,5 +1,6 @@
 package com.von.kubernetesuser.user.model;
 
+import com.von.kubernetesuser.common.model.BaseEntity;
 import org.springframework.stereotype.Component;
 import lombok.*;
 
@@ -8,15 +9,14 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO {
-
+public class UserDTO  {
     private Long id;
     private String username;
     private String password;
     private String name;
     private String phone;
-    private Long addressId;
+    private String email;
     private String job;
-
-
+    private String regDate;
+    private String modDate;
 }

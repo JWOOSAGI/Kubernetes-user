@@ -1,23 +1,38 @@
 package com.von.kubernetesuser.board;
 
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
+import com.von.kubernetesuser.board.model.BoardDTO;
+import com.von.kubernetesuser.board.serivce.BoardServiceImpl;
 
-import com.von.kubernetesuser.board.serivce.BoardService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RestController;
+import com.von.kubernetesuser.user.model.UserDTO;
+import org.springframework.web.bind.annotation.*;
+
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.http.ResponseEntity;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@RequiredArgsConstructor
 @RestController
+@RequiredArgsConstructor
+@Log4j2
+@RequestMapping("/api/boards")
 public class BoardController {
-    private static BoardService service;
 
-    public Map<?,?> readArticles() throws SQLException {
-        Map<String, String> map = new HashMap<>();
-        return map;
+    private final BoardServiceImpl service;
+
+    @GetMapping("/list")
+    public ResponseEntity<List<BoardDTO>> findAll()   {
+        log.info("입력받은 정보 : {}" );
+        return ResponseEntity.ok(service.findAll());
+    }
+
+    @GetMapping(path = "/detail")
+    public ResponseEntity<Optional<BoardDTO>> findById(@RequestParam("id") Long id) {
+        return ResponseEntity.ok(service.findById(id));
     }
 }
